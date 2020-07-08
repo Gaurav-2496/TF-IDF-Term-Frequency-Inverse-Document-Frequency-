@@ -1,0 +1,52 @@
+
+
+'''Description : The following program reads the clean text count the number of words and extract frequency
+of each word'''
+import preprocessor
+
+
+#class to analyze word counts and remove frequency of each word in clean text
+class WordAnalyser:
+ #constructor for creating an instance variable
+    def __init__(self):
+        self.word_counts=dict()  #Defining instance variable book_content to hold word_counts as a Dictionary
+
+#Re-define this method to present the number of occurences for each word
+    def __str__(self):
+        return str(self.word_counts) #returns the formatted string stored in instance variable
+
+#This method accepts the clean book text and return the count of occurences for each of the words
+    def analyse_words(self,book_text):
+#for loop to count the occurences of words in clean text
+        for word in book_text.split():
+#if statement increments the counter each time the word occurs
+            if word not in self.word_counts:
+                self.word_counts[word] = 1
+            else:
+                self.word_counts[word] += 1
+        return self.word_counts
+
+#this method returns the dictionary having frequency of words found in word_counts
+    def get_word_frequency(self):
+
+            total = {}                                                   #empty dictionary
+            count = sum(self.word_counts.values())                       #sums the total number of words in the file
+            for key in self.word_counts:
+              #Frequency = cound(words)/count all words
+              total[key] = float(self.word_counts[key]/count)           #stores the frequency value in empty dictionary
+            self.word_counts = total                                    #assigns frequency to self.word_counts variable
+            return  self.word_counts                                    #returns the frequency of words found in word_counts
+
+
+
+
+
+p = preprocessor.Preprocessor()
+book=p.read_text('11-0.txt')
+cleaned=p.clean()
+w=WordAnalyser()
+analyse_words=w.analyse_words(cleaned)
+frequency=w.get_word_frequency()
+
+
+
