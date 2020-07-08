@@ -1,0 +1,42 @@
+# creating a class to clean the dataset
+
+'''Description : Creating a class Preprocessor which  performs basic preprocessing on each input text and holds the
+string instance variable that holds the book text'''
+
+
+class Preprocessor:
+    # constructor for creating instance variable
+    def __init__(self):
+        self.book_content = str  # Defining instance variable book_content to hold book's text
+
+    # Re-defining method to print the book_content
+    def __str__(self):
+        return str(self.book_content)
+
+    # clean method removes the undesirable characters from text and stores it back to book_content
+    def clean(self):
+        if len(self.book_content) == 0:  # returns 1 when no text has been read into self.book_content(instance variable)
+            return 1
+        else:
+            # removes the undesirable characters
+            punctuations = r'''!"#$%&'()*+,.—/“;”‘:£½àâê’<=>?ýó@æüéöäô{ðíáéþèœ§ú'"[\]^湯覗養|}~'''  # list of undesirable characters
+            for characters in punctuations:
+                # lower case the characters and replaces characters specified above with blank spaces, hyphen and underscores with whitespaces
+                self.book_content = self.book_content.lower().replace(characters, '').replace('_', ' ').replace('-',
+                                                                                                                ' ')
+            # returns None when text is successfully read from book_content,cleaned and stored in book_content
+            return(self.book_content)
+            return None
+
+    # This method reads the content of file into string instance  variable of this class
+    def read_text(self, text_name):
+        with open(text_name, 'r',
+                  encoding="utf-8") as reader:  # takes the name of file to open from argument and stores it in text_name
+            self.book_content = reader.read()
+        return self.book_content
+
+
+p = Preprocessor()
+p.read_text('11-0.txt')
+p.clean()
+
